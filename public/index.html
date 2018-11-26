@@ -82,26 +82,25 @@
                 console.log(data)
                 for (i = 0; i < data.length; i++) {
                     var value = (data[i].level * 100) / 10;
-
                     html += `     
                 <div class="card">
                   <div class="card-header d-flex justify-content-between">
                     <span>
                       <b>${(i + 1) + '. '}</b>  ${data[i].name}
                       </span> 
-                      <span>  Current Level: ${data[i].lname}</span>
+                      <span>Current Level: ${data[i].lname}</span>
                     <span id="progress-level">Level: 10</span>
                   </div>
                   <div class="card-body">
                     <div class="progress">
-                      <span class="level-indicator" >${data[i].level}</span>
-                      <div class="progress-bar progress-bar-success " role="progressbar" aria-valuenow="${data[i].level}"
+                      <span class="level-indicator" id="${i}"
+                      >${data[i].level}</span>
+                      <div class="progress-bar progress-bar-success"  id="${10 + i}" role="progressbar" aria-valuenow="${data[i].level}"
                         aria-valuemin="0" aria-valuemax="10" style="width: ${value}%">
                         ${value}% Complete 
                       </div>
                     </div>
                     <div class="badges">
-                      
                     <div class="challenge">
                       <img src="donut.png" class="img-fluid" />
                     </div>
@@ -114,12 +113,14 @@
                 </div>
                 
               `;
-                    var progressBar = $('.progress-bar').outerWidth();
-                    $('.level-indicator').css({
+
+                    var progressBar = $(`#${10 + i}`).outerWidth();
+                    $(`#${i}`).css({
                         left: progressBar - 20 + 'px'
                     });
-
                 }
+
+
 
                 list.html(html)
 
