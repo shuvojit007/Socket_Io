@@ -78,11 +78,11 @@
 
 
             socket.on("get users", function (data) {
-                var html = ''
+                list.html('')
                 console.log(data)
                 for (i = 0; i < data.length; i++) {
                     var value = (data[i].level * 100) / 10;
-                    html += `     
+                    list.append(`  
                 <div class="card">
                   <div class="card-header d-flex justify-content-between">
                     <span>
@@ -111,19 +111,12 @@
     
                   </div>
                 </div>
-                
-              `;
-
-                    var progressBar = $(`#${10 + i}`).outerWidth();
-                    $(`#${i}`).css({
+              `);
+                    var progressBar = $('.progress-bar').outerWidth();
+                    $('.level-indicator').css({
                         left: progressBar - 20 + 'px'
                     });
                 }
-
-
-
-                list.html(html)
-
 
             })
 
