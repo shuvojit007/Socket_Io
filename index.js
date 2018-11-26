@@ -25,6 +25,9 @@ io.on("connection", socket => {
   socket.on("new_user", function (data) {
     console.log(data.name);
     socket.username = data.name;
+    if (users.includes(socket.username)) {
+      users.splice(users.indexOf(socket.username), 1);
+    }
     users.push(data);
     UpdateUserName();
   });
