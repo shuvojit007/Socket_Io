@@ -5,23 +5,27 @@ const express = require("express"),
   io = require("socket.io")(server);
 
 var users = [];
+app.use(express.static(__dirname + '/public'));
+
+
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+
+  res.sendFile(__dirname + "/public");
 });
 
 io.on("connection", socket => {
   console.log("user connected " + socket.id);
 
-  socket.on("disconnect", function() {
+  socket.on("disconnect", function () {
     console.log("user disconnected " + socket.id);
     users.splice(users.indexOf(socket.username), 1);
     UpdateUserName();
   });
 
-  socket.on("new_user", function(data) {
-    console.log(data);
-    socket.username = data;
-    users.push(socket.username);
+  socket.on("new_user", function (data) {
+    console.log(data.name);
+    socket.username = data.name;
+    users.push(data);
     UpdateUserName();
   });
 
