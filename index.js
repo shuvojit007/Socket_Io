@@ -27,8 +27,8 @@ io.on("connection", socket => {
     socket.username = data.name;
 
     for (var i = 0; i < users.length; i++) {
-      if (users[i].name.localeCompare(data.name)) {
-        users.splice(i, 1);
+      if (users[i].name === data.name) {
+        users.splice(users.indexOf(socket.username), 1);
       }
     }
     // if (users.find(data.name)) {
