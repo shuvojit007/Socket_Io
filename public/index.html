@@ -83,8 +83,7 @@
                 for (i = 0; i < data.length; i++) {
                     var value = (data[i].level * 100) / 10;
 
-                    html += `
-                    
+                    html += `     
                 <div class="card">
                   <div class="card-header d-flex justify-content-between">
                     <span>
@@ -113,15 +112,17 @@
     
                   </div>
                 </div>
+                
               `;
+                    var progressBar = $('.progress-bar').outerWidth();
+                    $('.level-indicator').css({
+                        left: progressBar - 20 + 'px'
+                    });
+
                 }
 
                 list.html(html)
 
-                var progressBar = $('.progress-bar').outerWidth();
-                $('.level-indicator').css({
-                    left: progressBar - 20 + 'px'
-                });
 
             })
 
