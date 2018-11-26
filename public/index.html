@@ -112,19 +112,13 @@
                   </div>
                 </div>
               `);
-                    var progressBar = $('.progress-bar').outerWidth();
-                    $('.level-indicator').css({
+                    var progressBar = $(`#${10 + i}`).outerWidth();
+                    $(`#${i}`).css({
                         left: progressBar - 20 + 'px'
                     });
                 }
+            });
 
-            })
-
-
-
-
-
-            // });
         });
     </script>
 </body>
