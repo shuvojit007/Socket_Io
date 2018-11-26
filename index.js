@@ -25,9 +25,15 @@ io.on("connection", socket => {
   socket.on("new_user", function (data) {
     console.log(data.name);
     socket.username = data.name;
-    if (users.includes(socket.username)) {
-      users.splice(users.indexOf(socket.username), 1);
+
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].name.localeCompare(data.name)) {
+        users.splice(i, 1);
+      }
     }
+    // if (users.find(data.name)) {
+    //   users.splice(users.indexOf(data.name), 1);
+    // }
     users.push(data);
     UpdateUserName();
   });
