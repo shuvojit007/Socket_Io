@@ -81,7 +81,13 @@
                 list.html('')
                 console.log(data)
                 for (i = 0; i < data.length; i++) {
+                    var completed;
                     var value = (data[i].level * 100) / 10;
+                    if (data[i].level === 0) {
+                        completed = "";
+                    } else {
+                        completed = value + "% Complete"
+                    }
                     list.append(`  
                 <div class="card">
                   <div class="card-header d-flex justify-content-between">
@@ -97,7 +103,7 @@
                       >${data[i].level}</span>
                       <div class="progress-bar progress-bar-success"  id="${10 + i}" role="progressbar" aria-valuenow="${data[i].level}"
                         aria-valuemin="0" aria-valuemax="10" style="width: ${value}%">
-                        ${value}% Complete 
+                        ${completed}
                       </div>
                     </div>
                     <div class="badges">
@@ -114,7 +120,7 @@
               `);
                     var progressBar = $(`#${10 + i}`).outerWidth();
                     $(`#${i}`).css({
-                        left: progressBar - 20 + 'px'
+                        left: progressBar - 15 + 'px'
                     });
                 }
             });
