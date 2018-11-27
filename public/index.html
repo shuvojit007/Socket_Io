@@ -32,7 +32,7 @@
 
                 <div class="col-md-12">
                     <div class="text-right mb-3">
-                        <input class="form-control" id="in" type="text" placeholder="Add Your Key" onkeyup="fetchKey()" />
+                        <input class="form-control" id="in" type="text" placeholder="Add Your Key" />
                         <button class="btn btn-success">Submit</button>
                     </div>
                 </div>
@@ -47,6 +47,8 @@
         <div class="row">
 
             <div class="col-md-12 col-sm-12 col-xs-12">
+
+
                 <div id="challange-list">
                     <!-- Data will be loaded -->
                 </div>
@@ -70,29 +72,38 @@
 
     <script type="text/javascript">
         $(function () {
-
             var list = $("#challange-list");
             var val = $("input").val();
 
+
+            $("#in").on("keyup", function () {
+                var key = $(this).val();
+                if (key == "") {
+                    $('.nameFeild').parent('.card-header').parent('.card').show();
+                } else {
+                    $('.nameFeild').parent('.card-header').parent('.card').hide();
+
+                    $('.nameFeild p').each(function (index, el) {
+                        if ($(el).text().indexOf(key) != -1) {
+                            console.log(" found");
+                            $(el).parent('.nameFeild').parent('.card-header').parent('.card').show();
+                        }
+                    });
+                }
+            });
+
             var socket = io.connect();
-
-
             socket.on("get users", function (data) {
                 list.html('')
-                console.log(data)
                 for (i = 0; i < data.length; i++) {
-                    var completed;
                     var value = (data[i].level * 100) / 10;
-                    if (data[i].level === 0) {
-                        completed = "";
-                    } else {
-                        completed = value + "% Complete"
-                    }
                     list.append(`  
                 <div class="card">
                   <div class="card-header d-flex justify-content-between">
-                    <span>
-                      <b>${(i + 1) + '. '}</b>  ${data[i].name}
+        
+                      <span class="nameFeild">
+                      <b>${(i + 1) + '. '}</b>  <span>${data[i].name}</span>
+                      <p style="display:none">${data[i].key}</p>
                       </span> 
                       <span>Current Level: ${data[i].lname}</span>
                     <span id="progress-level">Level: 10</span>
@@ -103,21 +114,30 @@
                       >${data[i].level}</span>
                       <div class="progress-bar progress-bar-success"  id="${10 + i}" role="progressbar" aria-valuenow="${data[i].level}"
                         aria-valuemin="0" aria-valuemax="10" style="width: ${value}%">
-                        ${completed}
                       </div>
                     </div>
-                    <div class="badges">
-                    <div class="challenge">
-                      <img src="donut.png" class="img-fluid" />
-                    </div>
-                    <div class="challenge">
-                      <img src="icecream.png" class="img-fluid" />
-                    </div>
+                    <div  id="b${i}" class="badges">
+                
                   </div>
     
                   </div>
                 </div>
               `);
+
+                    var badge = $(`#b${i}`);
+                    if (data[i].level >= 6 && data[i].level < 10) {
+                        badge.html(`
+                        <div class="challenge">
+                        <img src="donut.png" class="img-fluid" />
+                    </div>
+                        `)
+                    } else if (data[i].level == 10) {
+                        badge.html(`
+                        <div class="challenge"><img src="donut.png" class="img-fluid" /></div>
+                        <div class="challenge"><img src="icecream.png" class="img-fluid" /></div>
+                        `)
+                    }
+
                     var progressBar = $(`#${10 + i}`).outerWidth();
                     $(`#${i}`).css({
                         left: progressBar - 10 + 'px'
