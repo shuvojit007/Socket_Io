@@ -17,23 +17,20 @@ io.on("connection", socket => {
   console.log("user connected " + socket.id);
 
   socket.on("disconnect", function () {
-    console.log("user disconnected " + socket.id);
-    users.splice(users.indexOf(socket.username), 1);
+    users.splice(users.indexOf(socket.userid), 1);
     UpdateUserName();
   });
 
   socket.on("new_user", function (data) {
-    console.log(data.name);
+    console.log(data);
     socket.username = data.name;
-
+    socket.userid = data.id;
     for (var i = 0; i < users.length; i++) {
-      if (users[i].name === data.name) {
-        users.splice(users.indexOf(socket.username), 1);
+      if (users[i].id === data.id) {
+        users.splice(users.indexOf(data.id), 1);
       }
     }
-    // if (users.find(data.name)) {
-    //   users.splice(users.indexOf(data.name), 1);
-    // }
+
     users.push(data);
     UpdateUserName();
   });
