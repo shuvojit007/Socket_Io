@@ -95,12 +95,20 @@
             var socket = io.connect();
             socket.on("get users", function (data) {
                 list.html('')
+                //data re sort korte
+
+                data.sort(function (a, b) {
+                    return a.level > b.level;
+                })
+
+                console.log(data)
+
+
                 for (i = 0; i < data.length; i++) {
                     var value = (data[i].level * 100) / 10;
                     list.append(`  
                 <div class="card">
                   <div class="card-header d-flex justify-content-between">
-        
                       <span class="nameFeild">
                       <b>${(i + 1) + '. '}</b>  <span>${data[i].name}</span>
                       <p style="display:none">${data[i].key}</p>
