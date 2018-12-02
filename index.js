@@ -21,6 +21,12 @@ io.on("connection", socket => {
   //   UpdateUserName();
   // });
 
+
+  socket.on("remove_user", function (data) {
+    users.splice(users.indexOf(data.id), 1);
+    UpdateUserName();
+  });
+
   socket.on("new_user", function (data) {
     console.log(data);
     socket.username = data.name;
