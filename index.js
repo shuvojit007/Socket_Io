@@ -16,10 +16,10 @@ app.get("/", (req, res) => {
 io.on("connection", socket => {
   console.log("user connected " + socket.id);
 
-  socket.on("disconnect", function () {
-    users.splice(users.indexOf(socket.userid), 1);
-    UpdateUserName();
-  });
+  // socket.on("disconnect", function () {
+  //   users.splice(users.indexOf(socket.userid), 1);
+  //   UpdateUserName();
+  // });
 
   socket.on("new_user", function (data) {
     console.log(data);
