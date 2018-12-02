@@ -28,7 +28,7 @@ io.on("connection", socket => {
         users.splice(i, 1);
       }
     }
-  //  users.splice(users.indexOf(data.id), 1);
+    //  users.splice(users.indexOf(data.id), 1);
     UpdateUser();
   });
 
