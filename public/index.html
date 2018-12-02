@@ -85,7 +85,7 @@
 
                     $('.nameFeild p').each(function (index, el) {
                         if ($(el).text().indexOf(key) != -1) {
-                            console.log(" found");
+
                             $(el).parent('.nameFeild').parent('.card-header').parent('.card').show();
                         }
                     });
@@ -95,14 +95,10 @@
             var socket = io.connect();
             socket.on("get users", function (data) {
                 list.html('')
-                //data re sort korte
-
                 data.sort(function (a, b) {
                     return a.level < b.level;
                 })
-
                 console.log(data)
-
 
                 for (i = 0; i < data.length; i++) {
                     var value = (data[i].level * 100) / 10;

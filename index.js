@@ -23,8 +23,13 @@ io.on("connection", socket => {
 
 
   socket.on("remove_user", function (data) {
-    users.splice(users.indexOf(data.id), 1);
-    UpdateUserName();
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].id === data.id) {
+        users.splice(i, 1);
+      }
+    }
+  //  users.splice(users.indexOf(data.id), 1);
+    UpdateUser();
   });
 
   socket.on("new_user", function (data) {
@@ -33,15 +38,14 @@ io.on("connection", socket => {
     socket.userid = data.id;
     for (var i = 0; i < users.length; i++) {
       if (users[i].id === data.id) {
-        users.splice(users.indexOf(data.id), 1);
+        users.splice(i, 1);
       }
     }
-
     users.push(data);
-    UpdateUserName();
+    UpdateUser();
   });
 
-  function UpdateUserName() {
+  function UpdateUser() {
     io.sockets.emit("get users", users);
   }
 });
