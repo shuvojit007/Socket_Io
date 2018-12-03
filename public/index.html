@@ -118,9 +118,8 @@
                   </div>
                   <div class="card-body">
                     <div class="progress">
-                      <span class="level-indicator" id="${i}"
-                      >${data[i].level}</span>
-                      <div class="progress-bar progress-bar-success"  id="${10 + i}" role="progressbar" aria-valuenow="${data[i].level}"
+                      <span class="level-indicator" id="${"indicator" + i}">${data[i].level}</span>
+                      <div class="progress-bar progress-bar-success"  id="${"progress" + i}" role="progressbar" aria-valuenow="${data[i].level}"
                         aria-valuemin="0" aria-valuemax="10" style="width: ${value}%">
                       </div>
                     </div>
@@ -146,8 +145,8 @@
                         `)
                     }
 
-                    var progressBar = $(`#${10 + i}`).outerWidth();
-                    $(`#${i}`).css({
+                    var progressBar = $(`#${"progress" + i}`).outerWidth();
+                    $(`#${"indicator" + i}`).css({
                         left: progressBar - 10 + 'px'
                     });
                 }
