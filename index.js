@@ -32,7 +32,7 @@ io.on("connection", socket => {
     UpdateUser();
   });
 
-  socket.io("website", function (data) {
+  socket.on("website", function (data) {
     UpdateUser();
   });
 
