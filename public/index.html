@@ -93,10 +93,14 @@
             });
 
             var socket = io.connect();
+
+            socket.emit("website", "website");
+
+
             socket.on("get users", function (data) {
                 list.html('')
                 data.sort(function (a, b) {
-                    return a.level < b.level;
+                    return b.level - a.level;
                 })
                 console.log(data)
 

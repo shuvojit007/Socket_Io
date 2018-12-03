@@ -32,6 +32,10 @@ io.on("connection", socket => {
     UpdateUser();
   });
 
+  socket.io("website", function (data) {
+    UpdateUser();
+  });
+
   socket.on("new_user", function (data) {
     console.log(data);
     socket.username = data.name;
